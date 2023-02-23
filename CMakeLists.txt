@@ -10,6 +10,7 @@ set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets OpenGLWidgets)
@@ -18,8 +19,18 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui)
 
 set(PROJECT_SOURCES
         main.cpp
+        viewport.cpp
+        viewport.h
+        parser/parser.h
+        parser/parser.c
+        ViewerInterface.ui
         mainwindow.cpp
         mainwindow.h
+        options_window.h
+        options_window.cpp
+        aphins/aphins.h
+        aphins/aphins.c
+        options_window.ui
 )
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(viewer

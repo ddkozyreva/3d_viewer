@@ -1,35 +1,18 @@
-#include "mainwindow.h"
-
 #include <QApplication>
+#include <QCoreApplication>
 #include <QGridLayout>
-#include <QSlider>
-//void paint_function() {
-////    glBegin(GL_LINES);
-////            glVertex3f(-0.5f, 0.0f, 0.0f);
-////            glVertex3f(0.5f, 0.0f, 0.0f);
-////            glEnd();
 
-////        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-////        glClear(GL_COLOR_BUFFER_BIT);
-////        glPushMatrix();
-//        glBegin(GL_TRIANGLES);
+#include "mainwindow.h"
+#include "viewport.h"
 
-//            glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(0, 0);
-//            glColor3f(1.0f, 1.0f, 0.0f); glVertex2f(1, 0);
-//            glColor3f(1.0f, 0.0f, 1.0f); glVertex2f(1, 1);
-//        glEnd();
-////        glPopMatrix();
-//    ////    SwapBuffers(hDC);
-//}
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
-    MainWindow window;
-    QGridLayout layout;
-    QSlider rotation;
-    layout.addWidget(&rotation, 0, 0, 1, -1);
-    window.setLayout(&layout);
+int main(int argc, char *argv[]) {
+  QApplication app(argc, argv);
+  // QCoreApplication::setOrganizationName("DreamTem");
+  // QCoreApplication::setOrganizationDomain("21-school.ru");
+  // QCoreApplication::setApplicationName("3D Viewer 1.0");
+  MainWindow window;
+  window.setFixedSize(1000, 1010);
 
-    window.show();
-    return app.exec();
+  window.show();
+  return app.exec();
 }
