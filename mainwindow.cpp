@@ -5,10 +5,12 @@
 #include "options_window.h"
 
 MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent) {
+  printf("before setupUi\n");
   ui.setupUi(this);
   ui.centralwidget->setFixedSize(1000, 1000);
   Settings();
-  ui.centralwidget->InitializeModelParameters(0, 0, 0, 0, 0, 0, 1);
+  printf("before InitializeModelParameters \n");
+  printf("before StatusBarSetup \n");
   StatusBarSetup();
   SpinBoxValueSensor();
   // Нажатие на Open..
@@ -92,6 +94,7 @@ void MainWindow::OpenButtonPressed() {
   strcpy(ui.centralwidget->file_path, model_path);
 
   int parser_return_value = parser_obj(model_path, &(ui.centralwidget->src));
+  ui.centralwidget->InitializeModelParameters(0, 0, 0, 0, 0, 0, 1);
   if (parser_return_value) {
     QMessageBox::warning(this, "title", "File is corrupted!\n");
   }
