@@ -34,11 +34,11 @@ class options_window : public QWidget {
   ~options_window();
 
  private slots:
-  void on_pushButton_apply_settings_clicked();
+  void apply_settings_clicked();
 
-  void on_pushButton_edge_color_clicked();
+  void edge_color_clicked();
 
-  void on_pushButton_vertex_color_clicked();
+  void vertex_color_clicked();
 
  private:
   void SaveSettings();

@@ -14,11 +14,11 @@ options_window::options_window(QWidget *parent)
                                QColorDialog::NoButtons);
   ui->groupBox_background_settings->layout()->addWidget(background_color);
   connect(ui->pushButton_apply_settings, SIGNAL(clicked()), this,
-          SLOT(on_pushButton_apply_settings_clicked()));
+          SLOT(apply_settings_clicked()));
   connect(ui->pushButton_edge_color, SIGNAL(clicked()), this,
-          SLOT(on_pushButton_edge_color_clicked()));
+          SLOT(edge_color_clicked()));
   connect(ui->pushButton_vertex_color, SIGNAL(clicked()), this,
-          SLOT(on_pushButton_vertex_color_clicked()));
+          SLOT(vertex_color_clicked()));
   // LoadSettings();
 }
 
@@ -101,7 +101,7 @@ void options_window::SaveSettings() {
   // Projection Type settings
   settings->setValue("projection_type", projection_type);
 }
-void options_window::on_pushButton_apply_settings_clicked() {
+void options_window::apply_settings_clicked() {
   background_color->currentColor().getRgbF(&background_color_red_value,
                                            &background_color_green_value,
                                            &background_color_blue_value);
@@ -123,37 +123,18 @@ void options_window::on_pushButton_apply_settings_clicked() {
   SaveSettings();
 }
 
-void options_window::on_pushButton_edge_color_clicked() {
-  // QColor vertex_color_value =
-  //     QColorDialog::getColor(Qt::white, this, tr("select color"));
-  // vertex_color_value.getRgbF(&edges_color_red_value,
-  // &edges_color_green_value,
-  //                           &edges_color_blue_value);
-
-  // QColorDialog vertex_color_red = new
-  // edges_color->getColor().getRgbF(
-  //     &edges_color_red_value, &edges_color_green_value,
-  //     &edges_color_red_value);
+void options_window::edge_color_clicked() {
   printf("click\n");
   QColorDialog edges_color;
   edges_color.getColor().getRgbF(&edges_color_red_value,
                                    &edges_color_green_value,
                                    &edges_color_blue_value);
-  // if (edges_color.exec() == QColorDialog::Accepted) {
-  //   edges_color.getColor().getRgbF(&edges_color_red_value,
-  //                                  &edges_color_green_value,
-  //                                  &edges_color_blue_value);
-  //   // edges_color_red_value = 1;
-  //   // edges_color_green_value = 0;
     qDebug() << "after OK\n";
     qDebug() << edges_color_red_value << edges_color_green_value
              << edges_color_blue_value << "\n";
-  //   return;
-  // } else
-  //   return;
 }
 
-void options_window::on_pushButton_vertex_color_clicked() {
+void options_window::vertex_color_clicked() {
   // vertex_color->getColor().getRgb(&vertex_color_red_value,
   //                                 &vertex_color_green_value,
   //                                 &vertex_color_blue_value);

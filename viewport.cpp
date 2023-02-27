@@ -49,13 +49,13 @@ void ViewPort::InitializeViewportParameters() {
   vertex_size = 4;
   vertex_type = 1;
   line_type = 1;
-  if (QFile::exists(QDir::homePath()+"/build/config.ini")) {
+  if (QFile::exists(QDir::homePath() + "/build/config.ini")) {
     rBackColor = settings->value("background_color_red").toDouble();
     gBackColor = settings->value("background_color_green").toDouble();
     bBackColor = settings->value("background_color_blue").toDouble();
-    rColor = settings->value("edges_coor_red").toDouble();
-    gColor = settings->value("edges_coor_green").toDouble();
-    bColor = settings->value("edges_coor_blue").toDouble();
+    rColor = settings->value("edges_color_red").toDouble();
+    gColor = settings->value("edges_color_green").toDouble();
+    bColor = settings->value("edges_color_blue").toDouble();
     // qDebug() << "Model colors \n";
     // qDebug() << rColor << " " << gColor << " " << bColor
     //          << "\n";  // QColor background_color;
@@ -102,6 +102,7 @@ void ViewPort::paintGL() {
     glLineWidth(lineWidth);
 
     double* vertices = src.array_v;
+    printf("edges color = %f, %f,%f\n", rColor, gColor, bColor);
     GLdouble colors[] = {rColor, gColor, bColor};
     GLuint* index = src.array_f;
     glClearColor(rBackColor, gBackColor, bBackColor, 1.0f);  // цвет фона
