@@ -19,7 +19,7 @@ options_window::options_window(QWidget *parent)
           SLOT(on_pushButton_edge_color_clicked()));
   connect(ui->pushButton_vertex_color, SIGNAL(clicked()), this,
           SLOT(on_pushButton_vertex_color_clicked()));
-  // LoadSettings();
+  LoadSettings();
 }
 
 options_window::~options_window() {
@@ -30,12 +30,12 @@ options_window::~options_window() {
 void options_window::SetDefaultOptions() {}
 
 void options_window::LoadSettings() {
-  // background_color_red_value =
-  //     settings->value("background_color_red").toFloat();
-  // background_color_green_value =
-  //     settings->value("background_color_green").toFloat();
-  // background_color_blue_value =
-  //     settings->value("background_color_blue").toFloat();
+  background_color_red_value =
+      settings->value("background_color_red").toFloat();
+  background_color_green_value =
+      settings->value("background_color_green").toFloat();
+  background_color_blue_value =
+      settings->value("background_color_blue").toFloat();
   QColor background_color_from_settings;
   background_color_from_settings.setRedF(
       settings->value("background_color_red").toFloat());

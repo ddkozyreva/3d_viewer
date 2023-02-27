@@ -21,7 +21,7 @@ class options_window : public QWidget {
   QSettings *settings;
   explicit options_window(QWidget *parent = nullptr);
   QColorDialog *background_color;
-  // QColorDialog *vertex_color, *edge_color;
+  QColorDialog *vertex_color, *edge_color;
   float background_color_red_value, background_color_green_value,
       background_color_blue_value;
   float edges_color_red_value, edges_color_green_value, edges_color_blue_value;

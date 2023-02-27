@@ -48,27 +48,26 @@ void ViewPort::InitializeViewportParameters() {
   vertex_size = 4;
   vertex_type = 1;
   line_type = 1;
-  // rBackColor = settings->value("background_color_red").toDouble();
-  // gBackColor = settings->value("background_color_green").toDouble();
-  // bBackColor = settings->value("background_color_blue").toDouble();
-  // rColor = settings->value("edges_coor_red").toDouble();
-  // gColor = settings->value("edges_coor_green").toDouble();
-  // bColor = settings->value("edges_coor_blue").toDouble();
+  rBackColor = settings->value("background_color_red").toDouble();
+  gBackColor = settings->value("background_color_green").toDouble();
+  bBackColor = settings->value("background_color_blue").toDouble();
+  rColor = settings->value("edges_coor_red").toDouble();
+  gColor = settings->value("edges_coor_green").toDouble();
+  bColor = settings->value("edges_coor_blue").toDouble();
   // qDebug() << "Model colors \n";
   // qDebug() << rColor << " " << gColor << " " << bColor
   //          << "\n";  // QColor background_color;
-  // lineWidth = settings->value("line_width").toDouble();
-  // vertex_size = settings->value("vertex_size").toDouble();
-  // vertex_type = settings->value("vertex_type").toInt();
-  // line_type = settings->value("line_type").toInt();
+  lineWidth = settings->value("line_width").toDouble();
+  vertex_size = settings->value("vertex_size").toDouble();
+  vertex_type = settings->value("vertex_type").toInt();
+  line_type = settings->value("line_type").toInt();
   // background_color = settings_window.background_color->currentColor();
-  // background_color.getRgb(&rBackColor,&gBackColor,&bBackColor);
+  // background_color.getRgb(&rBackColor, &gBackColor, &bBackColor);
 }
 void ViewPort::InitializeModelParameters(double x_pos, double y_pos,
                                          double z_pos, double x_rot,
                                          double y_rot, double z_rot,
                                          double scale) {
-  printf("into initialize model parameters\n");
   move_x(&src, x_pos - x_pos_old);
   move_y(&src, y_pos - y_pos_old);
   move_z(&src, z_pos - z_pos_old);
@@ -76,7 +75,6 @@ void ViewPort::InitializeModelParameters(double x_pos, double y_pos,
   y_pos_old = y_pos;
   z_pos_old = z_pos;
 
-  printf("dasha point\n");
   rotation_by_ox(&src, x_rot - x_rot_old);
   rotation_by_oy(&src, y_rot - y_rot_old);
   rotation_by_oz(&src, z_rot - z_rot_old);
@@ -84,22 +82,17 @@ void ViewPort::InitializeModelParameters(double x_pos, double y_pos,
   y_rot_old = y_rot;
   z_rot_old = z_rot;
 
-  printf("dasha point\n");
   scaling(&src, scale / scale_old);
   scale_old = scale;
 
-  printf("before update\n");
   update();
-  printf("after update\n");
 }
 
 void ViewPort::initializeGL() { glEnable(GL_DEPTH_TEST); }
 
 void ViewPort::ParallelProjection() {}
 void ViewPort::paintGL() {
-  printf("inside paintGL\n");
   if (strlen(file_path)) {
-  printf("after if file path \n");
     InitializeViewportParameters();
     float dx = 0.5f;
     glPointSize(vertex_size);  // vertex size
@@ -158,8 +151,6 @@ void ViewPort::paintGL() {
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
   }
-  printf("after if inside paintGL\n");
-  
 }
 
 void ViewPort::resizeGL(int w, int h) {

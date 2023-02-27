@@ -5,30 +5,27 @@
 #include "options_window.h"
 
 MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent) {
-  printf("before setupUi\n");
   ui.setupUi(this);
   ui.centralwidget->setFixedSize(1000, 1000);
   Settings();
-  printf("before InitializeModelParameters \n");
-  printf("before StatusBarSetup \n");
   StatusBarSetup();
   SpinBoxValueSensor();
   // Нажатие на Open..
   connect(ui.actionimport, SIGNAL(triggered()), this,
           SLOT(OpenButtonPressed()));
   // Нажатие на кнопку настроек
-  // connect(ui.actionInterface_settings, SIGNAL(triggered()), this,
-  //         SLOT(OptionsPressed()));
+  connect(ui.actionInterface_settings, SIGNAL(triggered()), this,
+          SLOT(OptionsPressed()));
 }
 void MainWindow::Settings() {
   QString ini_file_name = QDir::homePath() + "/build/config.ini";
 
-  // QSettings* settings = new QSettings(ini_file_name, QSettings::IniFormat);
-  // settings_window.settings = settings;
-  // ui.centralwidget->settings = settings;
-  // settings_window.LoadSettings();
+  QSettings* settings = new QSettings(ini_file_name, QSettings::IniFormat);
+  settings_window.settings = settings;
+  ui.centralwidget->settings = settings;
+  settings_window.LoadSettings();
 }
-// void MainWindow::OptionsPressed() { settings_window.show(); }
+void MainWindow::OptionsPressed() { settings_window.show(); }
 
 void MainWindow::SpinBoxValueSensor() {
   // Следующий блок отслеживает изменение спин боксов при нажатии

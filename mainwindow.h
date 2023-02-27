@@ -62,7 +62,7 @@ class MainWindow : public QMainWindow {
   void Settings();
 
  private slots:
-  // void OptionsPressed();
+  void OptionsPressed();
   void SpinBoxValueChanged();
   void OpenButtonPressed();
 
