@@ -19,7 +19,7 @@ options_window::options_window(QWidget *parent)
           SLOT(on_pushButton_edge_color_clicked()));
   connect(ui->pushButton_vertex_color, SIGNAL(clicked()), this,
           SLOT(on_pushButton_vertex_color_clicked()));
-  LoadSettings();
+  // LoadSettings();
 }
 
 options_window::~options_window() {
@@ -134,19 +134,23 @@ void options_window::on_pushButton_edge_color_clicked() {
   // edges_color->getColor().getRgbF(
   //     &edges_color_red_value, &edges_color_green_value,
   //     &edges_color_red_value);
+  printf("click\n");
   QColorDialog edges_color;
-  if (edges_color.exec() == QColorDialog::Accepted) {
-    edges_color.getColor().getRgbF(&edges_color_red_value,
+  edges_color.getColor().getRgbF(&edges_color_red_value,
                                    &edges_color_green_value,
                                    &edges_color_blue_value);
-    // edges_color_red_value = 1;
-    // edges_color_green_value = 0;
+  // if (edges_color.exec() == QColorDialog::Accepted) {
+  //   edges_color.getColor().getRgbF(&edges_color_red_value,
+  //                                  &edges_color_green_value,
+  //                                  &edges_color_blue_value);
+  //   // edges_color_red_value = 1;
+  //   // edges_color_green_value = 0;
     qDebug() << "after OK\n";
     qDebug() << edges_color_red_value << edges_color_green_value
              << edges_color_blue_value << "\n";
-    return;
-  } else
-    return;
+  //   return;
+  // } else
+  //   return;
 }
 
 void options_window::on_pushButton_vertex_color_clicked() {

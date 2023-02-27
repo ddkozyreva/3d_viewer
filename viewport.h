@@ -14,6 +14,8 @@
 #include <QThread>
 #include <QWidget>
 #include <QWindow>
+#include <QFile>
+#include <QDir>
 
 #include "options_window.h"
 extern "C" {

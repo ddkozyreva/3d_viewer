@@ -11,6 +11,7 @@
 
 // #include <string>
 ViewPort::ViewPort(QWidget* parent) : QOpenGLWidget(parent) {
+  printf("question?\n");
   scaleFactorX = 0.5;
   scaleFactorY = 0.5;
   scaleFactorZ = 0.5;
@@ -48,19 +49,21 @@ void ViewPort::InitializeViewportParameters() {
   vertex_size = 4;
   vertex_type = 1;
   line_type = 1;
-  rBackColor = settings->value("background_color_red").toDouble();
-  gBackColor = settings->value("background_color_green").toDouble();
-  bBackColor = settings->value("background_color_blue").toDouble();
-  rColor = settings->value("edges_coor_red").toDouble();
-  gColor = settings->value("edges_coor_green").toDouble();
-  bColor = settings->value("edges_coor_blue").toDouble();
-  // qDebug() << "Model colors \n";
-  // qDebug() << rColor << " " << gColor << " " << bColor
-  //          << "\n";  // QColor background_color;
-  lineWidth = settings->value("line_width").toDouble();
-  vertex_size = settings->value("vertex_size").toDouble();
-  vertex_type = settings->value("vertex_type").toInt();
-  line_type = settings->value("line_type").toInt();
+  if (QFile::exists(QDir::homePath()+"/build/config.ini")) {
+    rBackColor = settings->value("background_color_red").toDouble();
+    gBackColor = settings->value("background_color_green").toDouble();
+    bBackColor = settings->value("background_color_blue").toDouble();
+    rColor = settings->value("edges_coor_red").toDouble();
+    gColor = settings->value("edges_coor_green").toDouble();
+    bColor = settings->value("edges_coor_blue").toDouble();
+    // qDebug() << "Model colors \n";
+    // qDebug() << rColor << " " << gColor << " " << bColor
+    //          << "\n";  // QColor background_color;
+    lineWidth = settings->value("line_width").toDouble();
+    vertex_size = settings->value("vertex_size").toDouble();
+    vertex_type = settings->value("vertex_type").toInt();
+    line_type = settings->value("line_type").toInt();
+  }
   // background_color = settings_window.background_color->currentColor();
   // background_color.getRgb(&rBackColor, &gBackColor, &bBackColor);
 }

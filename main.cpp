@@ -10,7 +10,6 @@ int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
   printf("before mainwindow\n");
   MainWindow window;
-  printf("after window\n");
   window.setFixedSize(1000, 1010);
   window.show();
   return app.exec();
