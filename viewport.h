@@ -6,6 +6,8 @@
 #include <QtGui/qevent.h>
 
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
@@ -14,8 +16,6 @@
 #include <QThread>
 #include <QWidget>
 #include <QWindow>
-#include <QFile>
-#include <QDir>
 
 #include "options_window.h"
 extern "C" {
@@ -24,6 +24,9 @@ extern "C" {
 }
 
 #define N 256
+#define VERTEX_TYPE_CIRCLE 1
+#define VERTEX_TYPE_SQUARE 2
+#define VERTEX_TYPE_DISABLED 0
 
 class ViewPort : public QOpenGLWidget {
   Q_OBJECT

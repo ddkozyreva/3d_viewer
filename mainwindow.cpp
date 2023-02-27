@@ -19,7 +19,6 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent) {
 }
 void MainWindow::Settings() {
   QString ini_file_name = QDir::homePath() + "/build/config.ini";
-
   QSettings* settings = new QSettings(ini_file_name, QSettings::IniFormat);
   settings_window.settings = settings;
   ui.centralwidget->settings = settings;

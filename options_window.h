@@ -6,6 +6,8 @@
 #include <QColorDialog>
 #include <QSettings>
 #include <QWidget>
+#include <QFile>
+#include <QDir>
 
 #include "ui_options_window.h"
 

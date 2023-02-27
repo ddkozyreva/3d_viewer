@@ -79,9 +79,11 @@ install:
 uninstall:
 	rm -rf $(BUILD_DIR)
 
-open:
+open: rebuild
 	$(BUILD_DIR)/viewer.app/Contents/MacOS/viewer
 
+rebuild:
+	cmake --build $(BUILD_DIR)
 
 
 

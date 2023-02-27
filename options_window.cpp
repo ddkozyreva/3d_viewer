@@ -4,6 +4,7 @@
 #include <QtCore/qnamespace.h>
 #include <QtGui/qcolor.h>
 #include <QtWidgets/qcolordialog.h>
+#include <cstdio>
 
 options_window::options_window(QWidget *parent)
     : QWidget(parent), ui(new Ui::options_window) {
@@ -19,7 +20,11 @@ options_window::options_window(QWidget *parent)
           SLOT(edge_color_clicked()));
   connect(ui->pushButton_vertex_color, SIGNAL(clicked()), this,
           SLOT(vertex_color_clicked()));
-  // LoadSettings();
+  // if (QFile::exists(QDir::homePath() + "/build/config.ini")) {
+  //   printf("before loading settings\n");
+  //   LoadSettings();
+  //   printf("after loading settings\n");
+  // }
 }
 
 options_window::~options_window() {
@@ -31,24 +36,26 @@ void options_window::SetDefaultOptions() {}
 
 void options_window::LoadSettings() {
   background_color_red_value =
-      settings->value("background_color_red").toFloat();
+      settings->value("background_color_red").toDouble();
   background_color_green_value =
-      settings->value("background_color_green").toFloat();
+      settings->value("background_color_green").toDouble();
   background_color_blue_value =
-      settings->value("background_color_blue").toFloat();
+      settings->value("background_color_blue").toDouble();
   QColor background_color_from_settings;
   background_color_from_settings.setRedF(
-      settings->value("background_color_red").toFloat());
+      settings->value("background_color_red").toDouble());
   background_color_from_settings.setGreenF(
-      settings->value("background_color_green").toFloat());
+      settings->value("background_color_green").toDouble());
   background_color_from_settings.setBlueF(
-      settings->value("background_color_blue").toFloat());
+      settings->value("background_color_blue").toDouble());
   background_color->setCurrentColor(background_color_from_settings);
+  printf("loading edge size settings\n");
   ui->doubleSpinBox_edge_size->setValue(
       settings->value("edges_size").toDouble());
   ui->doubleSpinBox_vertex_size->setValue(
       settings->value("vertex_size").toDouble());
-
+  printf("finished loading edge size settings\n");
+  printf("loading line type settings\n");
   if (settings->value("line_type").toInt()) {
     ui->radioButton_solid->setChecked(true);
     ui->radioButton_dashed->setChecked(false);
@@ -56,14 +63,15 @@ void options_window::LoadSettings() {
     ui->radioButton_solid->setChecked(false);
     ui->radioButton_dashed->setChecked(true);
   }
-
+  printf("finish loading line type settings\n");
+  printf("loading vertex type settings\n");
   if (!settings->value("vertex_type").toInt())
     ui->radioButton_none->setChecked(true);
   else if (settings->value("vertex_type").toInt() == 1)
     ui->radioButton_circle->setChecked(true);
   else if (settings->value("vertex_type").toInt() == 2)
     ui->radioButton_square->setChecked(true);
-
+  printf("finish vertex  type settings\n");
   if (settings->value("projection_type").toInt())
     ui->radioButton_central_projection->setChecked(true);
 }
@@ -127,15 +135,12 @@ void options_window::edge_color_clicked() {
   printf("click\n");
   QColorDialog edges_color;
   edges_color.getColor().getRgbF(&edges_color_red_value,
-                                   &edges_color_green_value,
-                                   &edges_color_blue_value);
-    qDebug() << "after OK\n";
-    qDebug() << edges_color_red_value << edges_color_green_value
-             << edges_color_blue_value << "\n";
+                                 &edges_color_green_value,
+                                 &edges_color_blue_value);
 }
 
 void options_window::vertex_color_clicked() {
-  // vertex_color->getColor().getRgb(&vertex_color_red_value,
-  //                                 &vertex_color_green_value,
-  //                                 &vertex_color_blue_value);
+  vertex_color->getColor().getRgbF(&vertex_color_red_value,
+                                   &vertex_color_green_value,
+                                   &vertex_color_blue_value);
 }

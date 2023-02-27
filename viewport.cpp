@@ -56,9 +56,6 @@ void ViewPort::InitializeViewportParameters() {
     rColor = settings->value("edges_color_red").toDouble();
     gColor = settings->value("edges_color_green").toDouble();
     bColor = settings->value("edges_color_blue").toDouble();
-    // qDebug() << "Model colors \n";
-    // qDebug() << rColor << " " << gColor << " " << bColor
-    //          << "\n";  // QColor background_color;
     lineWidth = settings->value("line_width").toDouble();
     vertex_size = settings->value("vertex_size").toDouble();
     vertex_type = settings->value("vertex_type").toInt();
@@ -102,7 +99,6 @@ void ViewPort::paintGL() {
     glLineWidth(lineWidth);
 
     double* vertices = src.array_v;
-    printf("edges color = %f, %f,%f\n", rColor, gColor, bColor);
     GLdouble colors[] = {rColor, gColor, bColor};
     GLuint* index = src.array_f;
     glClearColor(rBackColor, gBackColor, bBackColor, 1.0f);  // цвет фона
@@ -136,7 +132,7 @@ void ViewPort::paintGL() {
     // 1 = circle
     // 2 = square
     // 0 = none
-    if (vertex_type == 1) {
+    if (vertex_type == VERTEX_TYPE_CIRCLE) {
       glEnable(GL_POINT_SMOOTH);
     }
     if (vertex_type) {
