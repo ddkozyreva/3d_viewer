@@ -4,6 +4,7 @@
 #include <QtCore/qnamespace.h>
 #include <QtGui/qcolor.h>
 #include <QtWidgets/qcolordialog.h>
+
 #include <cstdio>
 
 options_window::options_window(QWidget *parent)
@@ -49,13 +50,10 @@ void options_window::LoadSettings() {
   background_color_from_settings.setBlueF(
       settings->value("background_color_blue").toDouble());
   background_color->setCurrentColor(background_color_from_settings);
-  printf("loading edge size settings\n");
   ui->doubleSpinBox_edge_size->setValue(
       settings->value("edges_size").toDouble());
   ui->doubleSpinBox_vertex_size->setValue(
       settings->value("vertex_size").toDouble());
-  printf("finished loading edge size settings\n");
-  printf("loading line type settings\n");
   if (settings->value("line_type").toInt()) {
     ui->radioButton_solid->setChecked(true);
     ui->radioButton_dashed->setChecked(false);
@@ -63,15 +61,12 @@ void options_window::LoadSettings() {
     ui->radioButton_solid->setChecked(false);
     ui->radioButton_dashed->setChecked(true);
   }
-  printf("finish loading line type settings\n");
-  printf("loading vertex type settings\n");
   if (!settings->value("vertex_type").toInt())
     ui->radioButton_none->setChecked(true);
   else if (settings->value("vertex_type").toInt() == 1)
     ui->radioButton_circle->setChecked(true);
   else if (settings->value("vertex_type").toInt() == 2)
     ui->radioButton_square->setChecked(true);
-  printf("finish vertex  type settings\n");
   if (settings->value("projection_type").toInt())
     ui->radioButton_central_projection->setChecked(true);
 }

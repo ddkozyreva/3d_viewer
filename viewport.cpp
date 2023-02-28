@@ -9,7 +9,6 @@
 
 #include "options_window.h"
 
-// #include <string>
 ViewPort::ViewPort(QWidget* parent) : QOpenGLWidget(parent) {
   printf("question?\n");
   scaleFactorX = 0.5;
@@ -49,6 +48,9 @@ void ViewPort::InitializeViewportParameters() {
   vertex_size = 4;
   vertex_type = 1;
   line_type = 1;
+  vertex_color_red = 1;
+  vertex_color_green = 1;
+  vertex_color_blue = 0;
   if (QFile::exists(QDir::homePath() + "/build/config.ini")) {
     rBackColor = settings->value("background_color_red").toDouble();
     gBackColor = settings->value("background_color_green").toDouble();
@@ -56,6 +58,11 @@ void ViewPort::InitializeViewportParameters() {
     rColor = settings->value("edges_color_red").toDouble();
     gColor = settings->value("edges_color_green").toDouble();
     bColor = settings->value("edges_color_blue").toDouble();
+
+    vertex_color_red = settings->value("vertex_color_red").toDouble();
+    vertex_color_green = settings->value("vertex_color_green").toDouble();
+    vertex_color_blue = settings->value("vertex_color_blue").toDouble();
+
     lineWidth = settings->value("line_width").toDouble();
     vertex_size = settings->value("vertex_size").toDouble();
     vertex_type = settings->value("vertex_type").toInt();
@@ -121,7 +128,7 @@ void ViewPort::paintGL() {
     glColorPointer(3, GL_FLOAT, 0, &colors);  // 3 переменные описывают цевт
     glEnableClientState(GL_VERTEX_ARRAY);
 
-    glColor3d(rColor, gColor, bColor);
+    glColor3d(vertex_color_red, vertex_color_green, vertex_color_blue);
     // Если нужен пунктир, то:
     if (!line_type) {
       glEnable(GL_LINE_STIPPLE);
@@ -136,6 +143,7 @@ void ViewPort::paintGL() {
       glEnable(GL_POINT_SMOOTH);
     }
     if (vertex_type) {
+      // TEST!
       glDrawArrays(GL_POINTS, 0,
                    src.count_vertex / 3);  // 0 - с какого элемента отсчет в
                                            // массиве, 4 - сколько взять
@@ -143,6 +151,11 @@ void ViewPort::paintGL() {
     if (vertex_type == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
+    // TEST!
+    glDisableClientState(GL_COLOR_ARRAY);
+    glColor3d(rColor, gColor, bColor);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    // END_OF THE TEST!
     glDrawElements(GL_LINES, src.count_facet, GL_UNSIGNED_INT,
                    index);  // 24 - количество точек из массива индексов
 

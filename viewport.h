@@ -61,6 +61,7 @@ class ViewPort : public QOpenGLWidget {
 
   double rColor, gColor, bColor;
   double rBackColor, gBackColor, bBackColor;
+  double vertex_color_red, vertex_color_green, vertex_color_blue;
 
   void mousePressEvent(QMouseEvent*) override;
   void mouseMoveEvent(QMouseEvent*) override;
