@@ -67,6 +67,8 @@ void ViewPort::InitializeViewportParameters() {
     vertex_size = settings->value("vertex_size").toDouble();
     vertex_type = settings->value("vertex_type").toInt();
     line_type = settings->value("line_type").toInt();
+    projection_type = settings->value("projection_type").toInt();
+
   }
   // background_color = settings_window.background_color->currentColor();
   // background_color.getRgb(&rBackColor, &gBackColor, &bBackColor);
@@ -94,70 +96,106 @@ void ViewPort::InitializeModelParameters(double x_pos, double y_pos,
 
   update();
 }
+double deg2radf(double deg) {
+    return deg * M_PI / 180.0;
+}
 
 void ViewPort::initializeGL() { glEnable(GL_DEPTH_TEST); }
 
 void ViewPort::ParallelProjection() {}
 void ViewPort::paintGL() {
+  if (projection_type) {
+    GLint viewport[4];
+    glGetIntegerv( GL_VIEWPORT, viewport );
+
+    double vw = viewport[2];
+    double vh = viewport[3];
+    float fov = 90;
+
+    float rad = deg2radf(fov/2.0f);
+
+    float hlen  = sinf(rad) * cosf(deg2radf(45.0));
+    float znear = hlen / tanf(rad);
+    float zfar  = znear + 1.0f;
+    float hwidth, hheight;
+
+    // aspect ratio
+
+    if (vw >= vh) {
+      hwidth  = hlen;
+      hheight = hlen * (vh / vw);
+    } else {
+      hwidth  = hlen * (vw  / vh);
+      hheight = hlen;
+    }
+  }
+
+  qDebug() << "projection_type: " << projection_type;
   if (strlen(file_path)) {
     InitializeViewportParameters();
-    float dx = 0.5f;
-    glPointSize(vertex_size);  // vertex size
+    glPointSize(vertex_size);
     glLineWidth(lineWidth);
 
     double* vertices = src.array_v;
     GLdouble colors[] = {rColor, gColor, bColor};
     GLuint* index = src.array_f;
-    glClearColor(rBackColor, gBackColor, bBackColor, 1.0f);  // цвет фона
+    glClearColor(rBackColor, gBackColor, bBackColor, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    if(projection_type) {
+      glClear(GL_DEPTH_BUFFER_BIT);
+      glEnable(GL_DEPTH_TEST);
+    }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glOrtho(-1 * src.maxV, 1 * src.maxV, -1 * src.maxV, 1 * src.maxV,
-            -1 * src.maxV,
-            1 * src.maxV);  // изменение диапазона координат по х, y, z
+    if (!projection_type) {
+      glOrtho(-1 * src.maxV, 1 * src.maxV, -1 * src.maxV, 1 * src.maxV,
+              -1 * src.maxV, 1 * src.maxV);
+    } else {
+      glFrustum(-hwidth, hwidth, -hheight, hheight, 1, 1000*src.maxV);
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+    }
+
     glScaled(scaleFactorX, scaleFactorY, scaleFactorZ);
 
-    glTranslated(xMov, yMov, zMov);
+    if (!projection_type) {
+      glTranslated(xMov, yMov, zMov);
+    } else {
+      glTranslated(xMov, yMov, zMov);// -5 * src.maxV);
+    }
 
     glRotated(xRot, 1, 0, 0);
     glRotated(yRot, 0, 1, 0);
     glRotated(zRot, 0, 0, 1);
 
     glVertexPointer(3, GL_DOUBLE, 0, vertices);
-    glColorPointer(3, GL_FLOAT, 0, &colors);  // 3 переменные описывают цевт
+    glColorPointer(3, GL_FLOAT, 0, &colors);
     glEnableClientState(GL_VERTEX_ARRAY);
 
     glColor3d(vertex_color_red, vertex_color_green, vertex_color_blue);
-    // Если нужен пунктир, то:
     if (!line_type) {
       glEnable(GL_LINE_STIPPLE);
       glLineStipple(2, 0x0F0F);
     }
 
-    // if (способ отображения = круг) {
-    // 1 = circle
-    // 2 = square
-    // 0 = none
     if (vertex_type == VERTEX_TYPE_CIRCLE) {
       glEnable(GL_POINT_SMOOTH);
     }
     if (vertex_type) {
-      // TEST!
-      glDrawArrays(GL_POINTS, 0,
-                   src.count_vertex / 3);  // 0 - с какого элемента отсчет в
-                                           // массиве, 4 - сколько взять
+      glDrawArrays(GL_POINTS, 0, src.count_vertex / 3);
     }
     if (vertex_type == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
-    // TEST!
     glDisableClientState(GL_COLOR_ARRAY);
     glColor3d(rColor, gColor, bColor);
     glEnableClientState(GL_VERTEX_ARRAY);
-    // END_OF THE TEST!
+    if(projection_type) {
+      glDisable(GL_DEPTH_TEST);
+    }
     glDrawElements(GL_LINES, src.count_facet, GL_UNSIGNED_INT,
-                   index);  // 24 - количество точек из массива индексов
+                   index);
 
     glDisable(GL_LINE_STIPPLE);
 
