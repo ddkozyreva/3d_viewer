@@ -4,12 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 static int isnum(char c);
 static void parserf(FILE *file, viewer *src, char *c);
 static void parserv(FILE *file, viewer *src);
 
 int parser_obj(char file_name[256], viewer *src) {
+  setlocale(LC_ALL, "C");
   int return_value = 0;
   FILE *file = fopen(file_name, "r");
   if (file == NULL) {
