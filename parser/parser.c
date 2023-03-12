@@ -14,6 +14,7 @@ int parser_obj(char file_name[256], viewer *src) {
   setlocale(LC_ALL, "C");
   src->count_edges = 0;
   int return_value = 0;
+  src->maxV = 0;
   FILE *file = fopen(file_name, "r");
   if (file == NULL) {
     printf("NO FILE\n");
