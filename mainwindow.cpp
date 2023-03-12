@@ -97,8 +97,8 @@ void MainWindow::OpenButtonPressed() {
   // ui.centralwidget->IsParserFailed(parser_return_value);
   unsigned vertecies_count = 0;
   unsigned edges_count = 0;
-  vertecies_count = ui.centralwidget->src.count_vertex;
-  edges_count = ui.centralwidget->src.count_facet;
+  vertecies_count = ui.centralwidget->src.count_vertex / 3;
+  edges_count = ui.centralwidget->src.count_edges;
   QString vertecies_count_text =
       "Vertecies:" + QString::number(vertecies_count);
   QString edges_count_text = "Edges:" + QString::number(edges_count);

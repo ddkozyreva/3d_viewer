@@ -8,8 +8,11 @@
 typedef struct death {
   unsigned int count_vertex;
   unsigned int count_facet;
+  unsigned int count_edges;
+  unsigned int polygon_type;
   double *array_v;
   unsigned int *array_f;
+  unsigned int *polygon_array;
   double maxV;
 } viewer;
 
