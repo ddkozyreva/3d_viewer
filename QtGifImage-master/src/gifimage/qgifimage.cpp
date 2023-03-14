@@ -219,7 +219,7 @@ bool QGifImagePrivate::load(QIODevice *device)
         frameInfos.append(frameInfo);
     }
 
-    DGifCloseFile(gifFile);
+    // DGifCloseFile(gifFile);
     return true;
 }
 

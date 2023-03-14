@@ -71,6 +71,7 @@ private slots:
   void SpinBoxValueChanged();
   void OpenButtonPressed();
   void RecordButtonPressed();
+  void RecordButtonPressed2();
   void CreateGif();
   void SaveGif();
 
