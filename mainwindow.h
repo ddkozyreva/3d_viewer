@@ -49,6 +49,7 @@ private:
 
   double vertex_size, edge_size;
   int edge_type, vertex_type, projection_type;
+  int record_counter = 0;
 
 public:
   MainWindow(QMainWindow *parent = nullptr);

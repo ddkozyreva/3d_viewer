@@ -27,9 +27,9 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushButton_record">
         <property name="text">
-         <string>Recording</string>
+         <string>Record</string>
         </property>
        </widget>
       </item>

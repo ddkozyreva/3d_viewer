@@ -3,6 +3,7 @@
 #include <QtCore/qsettings.h>
 
 #include "options_window.h"
+#include <stdio.h>
 
 MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   ui.setupUi(this);
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   // Нажатие на кнопку настроек
   connect(ui.actionInterface_settings, SIGNAL(triggered()), this,
           SLOT(OptionsPressed()));
+  connect(ui.pushButton_record, SIGNAL(pressed()), this,
+          SLOT(RecordButtonPressed()));
 }
 void MainWindow::Settings() {
   QString ini_file_name = QDir::homePath() + "/build/config.ini";
@@ -25,6 +28,18 @@ void MainWindow::Settings() {
   settings_window.LoadSettings();
 }
 void MainWindow::OptionsPressed() { settings_window.show(); }
+
+void MainWindow::RecordButtonPressed() {
+  if (!record_counter) {
+    record_counter = 1;
+    ui.pushButton_record->setStyleSheet("background-color: red");
+    ui.pushButton_record->setText("recording");
+  } else if (record_counter){
+    record_counter = 0;
+    ui.pushButton_record->setStyleSheet("background-color: ");
+    ui.pushButton_record->setText("Record");
+  }
+}
 
 void MainWindow::SpinBoxValueSensor() {
   // Следующий блок отслеживает изменение спин боксов при нажатии
