@@ -4,7 +4,7 @@
 
 #include "options_window.h"
 
-MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   ui.setupUi(this);
   ui.centralwidget->setFixedSize(1000, 1000);
   Settings();
@@ -19,7 +19,7 @@ MainWindow::MainWindow(QMainWindow* parent) : QMainWindow(parent) {
 }
 void MainWindow::Settings() {
   QString ini_file_name = QDir::homePath() + "/build/config.ini";
-  QSettings* settings = new QSettings(ini_file_name, QSettings::IniFormat);
+  QSettings *settings = new QSettings(ini_file_name, QSettings::IniFormat);
   settings_window.settings = settings;
   ui.centralwidget->settings = settings;
   settings_window.LoadSettings();
@@ -86,7 +86,7 @@ void MainWindow::OpenButtonPressed() {
   ui.statusbar->addPermanentWidget(ui.label_statusbar_vertecies_count);
   ui.statusbar->addPermanentWidget(ui.label_statusbar_edges_count);
   QByteArray model_path_conversion = file_name.toLocal8Bit().data();
-  char* model_path = model_path_conversion.data();
+  char *model_path = model_path_conversion.data();
   strcpy(ui.centralwidget->file_path, model_path);
 
   int parser_return_value = parser_obj(model_path, &(ui.centralwidget->src));

@@ -37,7 +37,7 @@ extern "C" {
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
- private:
+private:
   // // void mousePressEvent(QMouseEvent*) override;
   // void mouseMoveEvent(QMouseEvent*) override;
   double x_rot, y_rot, z_rot;
@@ -50,8 +50,8 @@ class MainWindow : public QMainWindow {
   double vertex_size, edge_size;
   int edge_type, vertex_type, projection_type;
 
- public:
-  MainWindow(QMainWindow* parent = nullptr);
+public:
+  MainWindow(QMainWindow *parent = nullptr);
   Ui::ViewerInterface ui;
   // ViewPort vport;
   options_window settings_window;
@@ -61,12 +61,13 @@ class MainWindow : public QMainWindow {
   void SpinBoxValueSensor();
   void Settings();
 
- private slots:
+private slots:
   void OptionsPressed();
   void SpinBoxValueChanged();
   void OpenButtonPressed();
+  void RecordButtonPressed();
 
- public slots:
+public slots:
 };
 
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H
