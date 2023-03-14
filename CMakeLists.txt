@@ -32,7 +32,22 @@ set(PROJECT_SOURCES
     options_window.cpp
     aphins/aphins.h
     aphins/aphins.c
-    options_window.ui)
+    options_window.ui
+
+    QtGifImage-master/src/3rdParty/giflib/gif_lib.h
+    QtGifImage-master/src/3rdParty/giflib/gif_lib_private.h
+    QtGifImage-master/src/3rdParty/giflib/dgif_lib.c
+    QtGifImage-master/src/3rdParty/giflib/egif_lib.c
+    QtGifImage-master/src/3rdParty/giflib/gif_err.c
+    QtGifImage-master/src/3rdParty/giflib/gif_hash.c
+    QtGifImage-master/src/3rdParty/giflib/gifalloc.c
+    QtGifImage-master/src/3rdParty/giflib/quantize.c
+    QtGifImage-master/src/gifimage/qgifglobal.h
+    QtGifImage-master/src/gifimage/qgifimage.h
+    QtGifImage-master/src/gifimage/qgifimage_p.h
+    QtGifImage-master/src/gifimage/qgifimage.cpp
+
+    )
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(viewer MANUAL_FINALIZATION ${PROJECT_SOURCES})
   # Define target properties for Android with Qt 6 as: set_property(TARGET

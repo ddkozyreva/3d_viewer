@@ -4,6 +4,7 @@
 
 #include "options_window.h"
 #include <stdio.h>
+#include "gif.h"
 
 MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   ui.setupUi(this);
@@ -34,11 +35,62 @@ void MainWindow::RecordButtonPressed() {
     record_counter = 1;
     ui.pushButton_record->setStyleSheet("background-color: red");
     ui.pushButton_record->setText("recording");
+
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(CreateGif()));
+    timer->start(100);
+
   } else if (record_counter){
     record_counter = 0;
     ui.pushButton_record->setStyleSheet("background-color: ");
     ui.pushButton_record->setText("Record");
   }
+}
+
+void MainWindow::CreateGif(){
+  counter = 0;
+  while (counter < 50) {
+    gif_vector.push_back(ui.centralwidget->grabFramebuffer());
+    counter++;
+  }
+  SaveGif();
+  counter = 0;
+}
+
+void MainWindow::SaveGif() {
+  QString filename = "111.gif";// NULL;
+  // GifWriter writer = {};
+  // QGifImage gif_filename;
+  // filename = QFileDialog::getSaveFileName(this, NULL, GIF_PATH, "GIF (*.gif) ");
+  // if (!filename.isNull()) {
+  //   QGifImage gif_file(
+  //       QSize(ui->widget->width() * 2, ui->widget->height() * 2));
+  //   gif_file.setDefaultDelay(100);  //выставляем задержку
+  counter = 0;
+  // for (auto img = gif_vector.begin(); img != gif_vector.end(); img++) {
+  //   if (!counter) {
+  //     GifBegin(&writer, img->convertToFormat(QImage::Format_Indexed8)
+  //     .convertToFormat(QImage::Format_RGBA8888)
+  //     .constBits(), 
+  //     640, 480, 10, 8, false);
+  //     counter = 1;
+
+  //   } else {
+  //     GifWriteFrame(&writer,
+  //                 img->convertToFormat(QImage::Format_Indexed8)
+  //                     .convertToFormat(QImage::Format_RGBA8888)
+  //                     .constBits(),
+  //                 640, 480, 10, 8, false);
+  //   }
+    // gif_file.addFrame(*frames);
+
+    // }
+    // GifEnd(&writer);
+  //   gif_file.save(filename);
+  // }
+  // gif_vector.clear();
+  //    counter = 0;
+  //    ui->GIF->setEnabled(true); // <--- в конце включаем кнопку
 }
 
 void MainWindow::SpinBoxValueSensor() {

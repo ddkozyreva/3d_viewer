@@ -13,6 +13,7 @@
 #include <QThread>
 #include <QWidget>
 #include <QWindow>
+#include <QTimer>
 #include <iostream>
 // #include <QtWidgets/qfiledialog.h>
 #include <QtWidgets/qmainwindow.h>
@@ -50,6 +51,8 @@ private:
   double vertex_size, edge_size;
   int edge_type, vertex_type, projection_type;
   int record_counter = 0;
+  QTimer* timer;
+  int counter;
 
 public:
   MainWindow(QMainWindow *parent = nullptr);
@@ -57,6 +60,7 @@ public:
   // ViewPort vport;
   options_window settings_window;
   // QSettings settings_viewport;
+  QVector<QImage> gif_vector;
 
   void StatusBarSetup();
   void SpinBoxValueSensor();
@@ -67,6 +71,8 @@ private slots:
   void SpinBoxValueChanged();
   void OpenButtonPressed();
   void RecordButtonPressed();
+  void CreateGif();
+  void SaveGif();
 
 public slots:
 };
