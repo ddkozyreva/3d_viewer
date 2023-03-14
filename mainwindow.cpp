@@ -34,10 +34,13 @@ void MainWindow::RecordButtonPressed() {
     record_counter = 1;
     ui.pushButton_record->setStyleSheet("background-color: red");
     ui.pushButton_record->setText("recording");
-  } else if (record_counter){
+  } else if (record_counter) {
     record_counter = 0;
     ui.pushButton_record->setStyleSheet("background-color: ");
     ui.pushButton_record->setText("Record");
+    QString gif_file_name = QFileDialog::getSaveFileName(
+        this, "Store file", QDir::homePath(), "GIT Files (*.gif)");
+    QByteArray model_path_conversion = gif_file_name.toLocal8Bit().data();
   }
 }
 
