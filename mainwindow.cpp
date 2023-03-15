@@ -1,15 +1,15 @@
 #include "mainwindow.h"
 
 #include <QtCore/qsettings.h>
-
-#include "options_window.h"
 #include <stdio.h>
+
 #include "QtGifImage-master/src/3rdParty/giflib/gif_hash.h"
 #include "QtGifImage-master/src/3rdParty/giflib/gif_lib.h"
 #include "QtGifImage-master/src/3rdParty/giflib/gif_lib_private.h"
 #include "QtGifImage-master/src/gifimage/qgifglobal.h"
 #include "QtGifImage-master/src/gifimage/qgifimage.h"
 #include "QtGifImage-master/src/gifimage/qgifimage_p.h"
+#include "options_window.h"
 
 MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   ui.setupUi(this);
@@ -24,7 +24,9 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
   connect(ui.actionInterface_settings, SIGNAL(triggered()), this,
           SLOT(OptionsPressed()));
   connect(ui.pushButton_record, SIGNAL(pressed()), this,
-          SLOT(RecordButtonPressed2()));
+          SLOT(RecordButtonPressed()));
+  connect(ui.pushButton_screenshot, SIGNAL(pressed()), this,
+          SLOT(ScreenshotButtonPressed()));
 }
 void MainWindow::Settings() {
   QString ini_file_name = QDir::homePath() + "/build/config.ini";
@@ -35,7 +37,7 @@ void MainWindow::Settings() {
 }
 void MainWindow::OptionsPressed() { settings_window.show(); }
 
-void MainWindow::RecordButtonPressed() {
+void MainWindow::ScreenshotButtonPressed() {
   QFileDialog dialogPhoto(this);
   QDateTime dateTime = dateTime.currentDateTime();
   QString currentDateTime = dateTime.toString("dd.MM.yy_HH.mm.ss_zzz");
@@ -43,10 +45,10 @@ void MainWindow::RecordButtonPressed() {
       this, "Save as...", "Screenshot_" + currentDateTime,
       "BMP (*.bmp);; JPEG (*.jpeg)");
   ui.centralwidget->grabFramebuffer().save(name_photo);
+  ui.centralwidget->update();
 }
 
-
-void MainWindow::RecordButtonPressed2() {
+void MainWindow::RecordButtonPressed() {
   if (!record_counter) {
     record_counter = 1;
     ui.pushButton_record->setStyleSheet("background-color: red");
@@ -56,13 +58,13 @@ void MainWindow::RecordButtonPressed2() {
     connect(timer, SIGNAL(timeout()), this, SLOT(CreateGif()));
     timer->start(100);
 
-  } else if (record_counter){
+  } else if (record_counter) {
     // record_counter = 0;
     ui.pushButton_record->setStyleSheet("background-color: ");
     ui.pushButton_record->setText("Record");
   }
 }
-void MainWindow::CreateGif(){
+void MainWindow::CreateGif() {
   counter = 0;
   // gif_vector = new QVector<QImage>;
   while (counter < 15) {
@@ -79,14 +81,14 @@ void MainWindow::SaveGif() {
   QFileDialog dialogPhoto(this);
   QDateTime dateTime = dateTime.currentDateTime();
   QString currentDateTime = dateTime.toString("dd.MM.yy_HH.mm.ss_zzz");
-  QString filename = dialogPhoto.getSaveFileName(
-      this, "Save as...", currentDateTime + ".gif");
+  QString filename =
+      dialogPhoto.getSaveFileName(this, "Save as...", currentDateTime + ".gif");
   // QString filename = "111.gif";
   QGifImage gif_file(QSize(640, 480));
   gif_file.setDefaultDelay(100);
   for (auto img = gif_vector.begin(); img != gif_vector.end(); img++) {
     gif_file.addFrame(*img);
-    }
+  }
   gif_file.save(filename);
 }
 

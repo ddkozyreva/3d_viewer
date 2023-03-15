@@ -24,12 +24,50 @@
     <bool>true</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_statusbar_vertecies_count">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_statusbar_edges_count">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QPushButton" name="pushButton_record">
         <property name="text">
          <string>Record</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_screenshot">
+        <property name="text">
+         <string>Screenshot</string>
         </property>
        </widget>
       </item>
@@ -188,37 +226,6 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item>
-       <widget class="QLabel" name="label_statusbar_vertecies_count">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_statusbar_edges_count">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -227,7 +234,7 @@
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

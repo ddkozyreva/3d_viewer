@@ -11,9 +11,9 @@
 #include <QOpenGLWidget>
 #include <QSettings>
 #include <QThread>
+#include <QTimer>
 #include <QWidget>
 #include <QWindow>
-#include <QTimer>
 #include <iostream>
 // #include <QtWidgets/qfiledialog.h>
 #include <QtWidgets/qmainwindow.h>
@@ -38,7 +38,7 @@ extern "C" {
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
-private:
+ private:
   // // void mousePressEvent(QMouseEvent*) override;
   // void mouseMoveEvent(QMouseEvent*) override;
   double x_rot, y_rot, z_rot;
@@ -54,8 +54,8 @@ private:
   QTimer* timer;
   int counter;
 
-public:
-  MainWindow(QMainWindow *parent = nullptr);
+ public:
+  MainWindow(QMainWindow* parent = nullptr);
   Ui::ViewerInterface ui;
   // ViewPort vport;
   options_window settings_window;
@@ -66,16 +66,16 @@ public:
   void SpinBoxValueSensor();
   void Settings();
 
-private slots:
+ private slots:
   void OptionsPressed();
   void SpinBoxValueChanged();
   void OpenButtonPressed();
+  void ScreenshotButtonPressed();
   void RecordButtonPressed();
-  void RecordButtonPressed2();
   void CreateGif();
   void SaveGif();
 
-public slots:
+ public slots:
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
