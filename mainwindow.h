@@ -16,7 +16,7 @@
 #include <QWindow>
 #include <iostream>
 // #include <QtWidgets/qfiledialog.h>
-#include <QtWidgets/qmainwindow.h>
+#include <QtWidgets/qmainwindow.h>mw.h
 #include <QtWidgets/qstatusbar.h>
 
 #include <QDir>
@@ -52,7 +52,7 @@ class MainWindow : public QMainWindow {
   int edge_type, vertex_type, projection_type;
   int record_counter = 0;
   QTimer* timer;
-  int counter;
+  int counter = 0;
 
  public:
   MainWindow(QMainWindow* parent = nullptr);
@@ -60,7 +60,7 @@ class MainWindow : public QMainWindow {
   // ViewPort vport;
   options_window settings_window;
   // QSettings settings_viewport;
-  QVector<QImage> gif_vector;
+  QVector<QImage> gif_vector = {};
 
   void StatusBarSetup();
   void SpinBoxValueSensor();

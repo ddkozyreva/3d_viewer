@@ -43,38 +43,49 @@ void MainWindow::ScreenshotButtonPressed() {
   QString currentDateTime = dateTime.toString("dd.MM.yy_HH.mm.ss_zzz");
   QString name_photo = dialogPhoto.getSaveFileName(
       this, "Save as...", "Screenshot_" + currentDateTime,
+
       "BMP (*.bmp);; JPEG (*.jpeg)");
+
+  // QString name_photo =
+  //     QFileDialog::getSaveFileName(this, "Store file", QDir::homePath(),
+  //                                  "JPEG Files (*.jpeg);; BMP (*.bmp) ");
+  // QByteArray model_path_conversion = name_photo.toLocal8Bit().data();
   ui.centralwidget->grabFramebuffer().save(name_photo);
   ui.centralwidget->update();
 }
 
 void MainWindow::RecordButtonPressed() {
-  if (!record_counter) {
-    record_counter = 1;
-    ui.pushButton_record->setStyleSheet("background-color: red");
-    ui.pushButton_record->setText("recording");
-
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(CreateGif()));
-    timer->start(100);
-
-  } else if (record_counter) {
-    // record_counter = 0;
-    ui.pushButton_record->setStyleSheet("background-color: ");
-    ui.pushButton_record->setText("Record");
-  }
-}
-void MainWindow::CreateGif() {
-  counter = 0;
-  // gif_vector = new QVector<QImage>;
-  while (counter < 15) {
-    gif_vector.push_back(ui.centralwidget->grabFramebuffer());
+  // timer = new QTimer(this);
+  // connect(timer, SIGNAL(timeout()), this, SLOT(CreateGif()));
+  while (counter < 300) {
+    QTimer::singleShot(100, timer, SLOT(CreateGif()));
+    // timer->start(100);
     counter++;
-    qDebug() << "counter: " << counter;
   }
   SaveGif();
   gif_vector.clear();
   timer->stop();
+
+  // if (!record_counter) {
+  //   record_counter = 1;
+  //   ui.pushButton_record->setStyleSheet("background-color: red");
+  //   ui.pushButton_record->setText("recording");
+  //
+  //   timer = new QTimer(this);
+  //   connect(timer, SIGNAL(timeout()), this, SLOT(CreateGif()));
+  //   timer->start(100);
+  // } else if (record_counter) {
+  //   record_counter = 0;
+  //   ui.pushButton_record->setStyleSheet("background-color: ");
+  //   ui.pushButton_record->setText("Record");
+  //   QString gif_file_name = QFileDialog::getSaveFileName(
+  //       this, "Store file", QDir::homePath(), "GIT Files (*.gif)");
+  //   QByteArray model_path_conversion = gif_file_name.toLocal8Bit().data();
+  // }
+}
+void MainWindow::CreateGif() {
+  gif_vector.push_back(ui.centralwidget->grabFramebuffer());
+  qDebug() << "counter: " << counter;
 }
 
 void MainWindow::SaveGif() {
